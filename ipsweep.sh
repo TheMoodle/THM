@@ -10,10 +10,10 @@ else
 		NC='\033[0m'
 		White='\033[1;37m'
 		Yellow='\033[1;33m'
+		Blue='\033[1;34m'
 		Bold=$(tput bold)
 		Normal=$(tput sgr0)
 
-	echo ''
 	echo -e ${White}' ___ ____  ____                         '
 	echo -e '|_ _|  _ \/ ___|_      _____  ___ _ __  '
 	echo -e ' | || |_) \___ \ \ /\ / / _ \/ _ \  _ \' 
@@ -29,8 +29,10 @@ else
 	nmap -sP $1 2>/dev/null | grep "Nmap" | cut -d " " -f 5 | sed '1d;$d' >> /tmp/ipsweep
 	echo -e "${Yellow}Progress 2/2"
 	sort -V -i /tmp/ipsweep | uniq > /tmp/ipsweep.txt
+	rm /tmp/ipsweep 2>/dev/null
 
-	echo -e "${Bold}${Red}Completed: Hosts Found!";
+	WC=`wc /tmp/ipsweep.txt | head -n1 | cut -d " " -f2`
+	echo -e ${Bold}${Red}'Completed: '${Blue}$WC ${Red}'Hosts Found!'
 	echo -e "${Normal}$(cat /tmp/ipsweep.txt)"
 
 fi
