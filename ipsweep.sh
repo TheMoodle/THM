@@ -6,6 +6,7 @@ then
 #	echo -e "$(motivate)" # Uncommment for motivation! https://github.com/mubaris/motivate
 
 else
+	
 		#Text Variables
 		Red='\033[0;31m'
 		Orange='\033[0;33m'
@@ -24,16 +25,12 @@ echo -e ${Red}${Bold}'               Made By: TheMoodle'${White}'|_|   '
 	rm /tmp/ipsweep 2>/dev/null
 	rm /tmp/ipsweep.txt 2>/dev/null
 
-#Start Fping Scan
-	fping -a -g $1 2>/dev/null > /tmp/ipsweep
-	echo -e "${Yellow}Progress 1/3"
-
-#Start Nmap Scan
-	nmap -sP $1 2>/dev/null | grep "Nmap" | cut -d " " -f 5 | sed '1d;$d' >> /tmp/ipsweep
-	echo -e "${Yellow}Progress 2/3"
-#Start Arp Scan
-	arp | sed '/incomplete/d' | cut -d " " -f 1 | sed '1d' >> /tmp/ipsweep
-	echo -e "${Yellow}Progress 3/3"
+#Start Scanning
+	echo -e "${Yellow}Initializing..."
+	fping -a -g $1 2>/dev/null > /tmp/ipsweep &
+	nmap -sP $1 2>/dev/null | grep "Nmap" | cut -d " " -f 5 | sed '1d;$d' >> /tmp/ipsweep &
+	arp | sed '/incomplete/d' | cut -d " " -f 1 | sed '1d' >> /tmp/ipsweep &
+	wait
 
 #Sort and Concatenate Output File
 	sort -V -i /tmp/ipsweep | uniq > /tmp/ipsweep.txt
@@ -42,6 +39,6 @@ echo -e ${Red}${Bold}'               Made By: TheMoodle'${White}'|_|   '
 #Echo Out the Results
 	WC=`wc /tmp/ipsweep.txt | head -n1 | cut -d " " -f2`
 	echo -e ${Bold}${Red}'Completed: '${Blue}$WC${Red} 'Hosts Found!'
-	echo -e "${Normal}$(cat /tmp/ipsweep.txt)"
+	echo -e "${NC}$(cat /tmp/ipsweep.txt)"
 
 fi
