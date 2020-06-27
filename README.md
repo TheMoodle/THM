@@ -8,7 +8,7 @@ This repository contains useful scripts/tools that I use on the [Tryhackme](http
 `Usage: setup.py [URL Extension] {Optional: Name of Directory}`
 
 ## IPSweep.sh
-[A bash script](ipsweep.sh) to automatically combine both the results of an Nmap and Fping scan for host discovery.
+[A bash script](ipsweep.sh) that automatically combines the results of an Nmap, Fping and Arp scan for host discovery.
 
 `Usage: ./ipsweep.sh [IP Address or range]`
 
