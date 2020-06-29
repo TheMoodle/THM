@@ -10,6 +10,6 @@ This repository contains useful scripts/tools that I use on the [Tryhackme](http
 ## IPSweep.sh
 [A bash script](ipsweep.sh) that automatically combines the results of an Nmap, Fping and Arp scan for host discovery.
 
-`Usage: ./ipsweep.sh [IP Address or range]`
+`Usage: ./ipsweep.sh [IP Address or range] {Optional: Output file}`
 
-`Example: ./ipsweep.sh 192.168.1.0/24`
+`Example: ./ipsweep.sh 192.168.1.0/24 /root/ip.txt`
